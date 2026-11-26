@@ -218,4 +218,75 @@ function zeichne() {
   }
   const passend = tag.gerichte.filter(g => (!einst.vegan || g.vegan) && (!einst.vegetarisch || g.vegetarisch || g.vegan));
   if (!passend.length) {
-    el("inhalt").innerHTML = '<div class="karte leer">Kein Gericht passt zu deinen
+    el("inhalt").innerHTML = '<div class="karte leer">Kein Gericht passt zu deinen Filtern.</div>';
+    return;
+  }
+  const sortiert = bewerten(passend).sort((a, b) => b.punkte - a.punkte);
+  empfehlung = sortiert[0];
+  el("mail").disabled = false;
+  el("inhalt").innerHTML = karte(sortiert[0], true) +
+    `<div class="liste">${sortiert.slice(1).map(g => karte(g, false)).join("")}</div>`;
+}
+
+function zeichneEinstellungen() {
+  el("fVegan").checked = einst.vegan;
+  el("fVegetarisch").checked = einst.vegetarisch;
+  el("gewichte").innerHTML = GEWICHTE.map(([k, text]) =>
+    `<div class="zeile"><span>${text}</span><div class="regler">${[0, 1, 2, 3].map(n =>
+      `<button data-k="${k}" data-n="${n}" class="${einst.gewichte[k] === n ? "aktiv" : ""}">${n}</button>`).join("")}</div></div>`).join("");
+}
+
+el("umschalter").onclick = e => {
+  const b = e.target.closest("button");
+  if (!b || b.dataset.mensa === einst.mensa) return;
+  einst.mensa = b.dataset.mensa;
+  speichern();
+  ladeMensa();
+};
+
+el("tabs").onclick = e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  tagIndex = Number(b.dataset.i);
+  zeichneTabs();
+  zeichne();
+};
+
+el("gewichte").onclick = e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  einst.gewichte[b.dataset.k] = Number(b.dataset.n);
+  speichern();
+  zeichneEinstellungen();
+  zeichne();
+};
+
+el("fVegan").onchange = e => { einst.vegan = e.target.checked; speichern(); zeichne(); };
+el("fVegetarisch").onchange = e => { einst.vegetarisch = e.target.checked; speichern(); zeichne(); };
+
+el("mail").onclick = () => {
+  if (!empfehlung) return;
+  const tag = daten.tage[tagIndex];
+  const g = empfehlung;
+  const kcal = g.kcal_portion != null ? `${g.kcal_portion} kcal pro Portion (geschätzt)` : g.kcal_100g != null ? `${g.kcal_100g} kcal / 100 g` : "unbekannt";
+  const betreff = `Mensa-Tipp ${tag.wochentag} ${kurzDatum(tag.datum)}: ${g.name}`;
+  const text = [
+    `Meine Tagesempfehlung in der Mensa ${MENSANAMEN[einst.mensa]} am ${tag.wochentag}, ${kurzDatum(tag.datum)}:`,
+    "",
+    g.name,
+    `Kategorie: ${g.kategorie}`,
+    `Preis (Studierende): ${euro(g.preis_studierende)}`,
+    `Kalorien: ${kcal}`,
+    `Gesundheit: ${g.gesundheit ?? "–"}/10 (geschätzt)${g.begruendung ? " – " + g.begruendung : ""}`,
+    g.vegan ? "vegan" : g.vegetarisch ? "vegetarisch" : "",
+    "",
+    `Gefunden mit dem Mensa-Coach: ${location.href}`,
+  ].join("\n");
+  location.href = `mailto:?subject=${encodeURIComponent(betreff)}&body=${encodeURIComponent(text)}`;
+};
+
+zeichneEinstellungen();
+ladeMensa();
+</script>
+</body>
+</html>
