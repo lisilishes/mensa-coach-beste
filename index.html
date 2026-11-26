@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mensa-Coach</title>
+<style>
+:root {
+  --akzent: #4f46e5; --akzent-hell: #eef2ff; --text: #1f2937; --grau: #6b7280;
+  --linie: #e5e7eb; --hg: #f5f6fa; --karte: #ffffff;
+  --gruen: #16a34a; --gelb: #eab308; --rot: #dc2626;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--hg); color: var(--text); }
+header { background: var(--karte); border-bottom: 1px solid var(--linie); position: sticky; top: 0; z-index: 5; }
+.kopf { max-width: 1180px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+h1 { font-size: 22px; margin: 0; display: flex; align-items: center; gap: 10px; }
+.logo { width: 36px; height: 36px; border-radius: 11px; background: var(--akzent); color: #fff; display: grid; place-items: center; font-size: 18px; }
+.umschalter { display: flex; background: var(--hg); border-radius: 12px; padding: 4px; gap: 4px; }
+.umschalter button { border: 0; background: transparent; font: inherit; cursor: pointer; color: var(--grau); padding: 8px 18px; border-radius: 9px; }
+.umschalter button.aktiv { background: var(--karte); color: var(--akzent); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+main { max-width: 1180px; margin: 0 auto; padding: 22px 24px 48px; }
+.tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+.tabs button { font: inherit; cursor: pointer; background: var(--karte); border: 1px solid var(--linie); color: var(--text); min-width: 96px; padding: 10px 14px; border-radius: 12px; }
+.tabs button small { display: block; font-size: 12px; color: var(--grau); }
+.tabs button.aktiv { background: var(--akzent); border-color: var(--akzent); color: #fff; font-weight: 600; }
+.tabs button.aktiv small { color: #e0e7ff; }
+.raster { display: grid; grid-template-columns: 1fr 330px; gap: 22px; align-items: start; }
+.karte { background: var(--karte); border-radius: 18px; padding: 18px 20px; border: 1px solid var(--linie); box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+.empfehlung { border: 2px solid var(--akzent); padding: 26px 28px; margin-bottom: 22px; box-shadow: 0 6px 20px rgba(79,70,229,.12); }
+.empfehlung h2 { font-size: 27px; margin: 4px 0 10px; }
+.etikett { display: inline-block; background: var(--akzent-hell); color: var(--akzent); font-weight: 600; font-size: 13px; padding: 4px 12px; border-radius: 999px; margin-bottom: 10px; }
+.liste { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.karte h3 { margin: 4px 0 10px; font-size: 17px; line-height: 1.3; }
+.kat { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--grau); }
+.punkte { float: right; font-weight: 700; color: var(--akzent); font-size: 14px; }
+.werte { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip { font-size: 13px; padding: 4px 10px; border-radius: 999px; background: var(--hg); }
+.chip.veg { background: #dcfce7; color: #166534; font-weight: 600; }
+.ampel { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+.ampel i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.hinweis { font-size: 11px; color: var(--grau); font-style: italic; }
+.grund { font-size: 14px; color: var(--grau); margin: 12px 0 0; }
+.seite { position: sticky; top: 90px; }
+.seite h2 { font-size: 18px; margin: 0 0 8px; }
+.zeile { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--linie); }
+.untertitel { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--grau); margin: 18px 0 2px; }
+.regler { display: flex; gap: 4px; }
+.regler button { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--linie); background: var(--karte); cursor: pointer; font: inherit; }
+.regler button.aktiv { background: var(--akzent); color: #fff; border-color: var(--akzent); }
+.schalter { width: 20px; height: 20px; accent-color: var(--akzent); cursor: pointer; }
+.knopf { display: block; width: 100%; margin-top: 20px; padding: 13px; border: 0; border-radius: 12px; background: var(--akzent); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.knopf:disabled { opacity: .45; cursor: default; }
+.leer { color: var(--grau); text-align: center; padding: 48px 20px; }
+.stand { font-size: 12px; color: var(--grau); margin-top: 14px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="kopf">
+    <h1><span class="logo">🍽</span>Mensa-Coach</h1>
+    <div class="umschalter" id="umschalter">
+      <button data-mensa="flandernstrasse">Flandernstraße</button>
+      <button data-mensa="stadtmitte">Stadtmitte</button>
+    </div>
+  </div>
+</header>
+<main>
+  <nav class="tabs" id="tabs"></nav>
+  <div class="raster">
+    <section id="inhalt"><div class="karte leer">Lade Speiseplan …</div></section>
+    <aside class="karte seite">
+      <h2>Meine Prioritäten</h2>
+      <div class="untertitel">Filter</div>
+      <div class="zeile"><label for="fVegan">Nur vegan</label><input type="checkbox" class="schalter" id="fVegan"></div>
+      <div class="zeile"><label for="fVegetarisch">Nur vegetarisch</label><input type="checkbox" class="schalter" id="fVegetarisch"></div>
+      <div class="untertitel">Wie wichtig ist mir … (0–3)</div>
+      <div id="gewichte"></div>
+      <button class="knopf" id="mail">Per Mail teilen</button>
+      <div class="stand" id="stand"></div>
+    </aside>
+  </div>
+</main>
+<script>
+const MENSANAMEN = { flandernstrasse: "Esslingen Flandernstraße", stadtmitte: "Esslingen Stadtmitte" };
+const GEWICHTE = [["gesundheit", "Gesundheit"], ["kalorien", "Wenig Kalorien"], ["preis", "Niedriger Preis"], ["eiweiss", "Viel Eiweiß"]];
+const STANDARD = { mensa: "flandernstrasse", vegan: false, vegetarisch: false,
+                   gewichte: { gesundheit: 2, kalorien: 1, preis: 1, eiweiss: 1 } };
+const SPEICHER = "mensa-coach-einstellungen";
+
+const besitzer = location.hostname.split(".")[0];
+const repo = location.pathname.split("/").filter(Boolean)[0] || location.hostname;
+const el = id => document.getElementById(id);
+
+let einst = laden();
+let daten = null;
+let tagIndex = null;
+let empfehlung = null;
+
+function laden() {
+  try {
+    const s = JSON.parse(localStorage.getItem(SPEICHER));
+    if (s) return { ...STANDARD, ...s, gewichte: { ...STANDARD.gewichte, ...(s.gewichte || {}) } };
+  } catch (e) {}
+  return JSON.parse(JSON.stringify(STANDARD));
+}
+
+function speichern() {
+  try { localStorage.setItem(SPEICHER, JSON.stringify(einst)); } catch (e) {}
+}
+
+function esc(t) {
+  return String(t ?? "").replace(/[&<>"']/g, z => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[z]));
+}
+
+function datenUrl(mensa) {
+  return `https://raw.githubusercontent.com/${besitzer}/${repo}/main/data/${mensa}.json`;
+}
+
+function euro(p) { return p == null ? "Preis unbekannt" : p.toFixed(2).replace(".", ",") + " €"; }
+function kurzDatum(iso) { const [j, m, d] = iso.split("-"); return `${d}.${m}.`; }
+
+function heuteIndex(tage) {
+  const d = new Date();
+  const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const i = tage.findIndex(t => t.datum === iso);
+  if (i >= 0) return i;
+  const wt = d.getDay();
+  return wt >= 1 && wt <= 5 ? Math.min(wt - 1, tage.length - 1) : 0;
+}
+
+async function ladeMensa() {
+  document.querySelectorAll("#umschalter button").forEach(b => b.classList.toggle("aktiv", b.dataset.mensa === einst.mensa));
+  el("inhalt").innerHTML = '<div class="karte leer">Lade Speiseplan …</div>';
+  try {
+    const r = await fetch(datenUrl(einst.mensa), { cache: "no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    daten = await r.json();
+  } catch (e) {
+    daten = null;
+    el("tabs").innerHTML = "";
+    el("inhalt").innerHTML = `<div class="karte leer">Speiseplan konnte nicht geladen werden (${esc(e.message)}).<br><small>${esc(datenUrl(einst.mensa))}</small></div>`;
+    el("mail").disabled = true;
+    return;
+  }
+  if (tagIndex === null || tagIndex >= daten.tage.length) tagIndex = heuteIndex(daten.tage);
+  el("stand").textContent = "Daten vom " + new Date(daten.stand).toLocaleString("de-DE", { dateStyle: "medium", timeStyle: "short" });
+  zeichneTabs();
+  zeichne();
+}
+
+function bewerten(gerichte) {
+  const mitPortion = gerichte.some(g => g.kcal_portion != null);
+  const werte = {
+    gesundheit: g => g.gesundheit,
+    kalorien: g => (mitPortion ? g.kcal_portion : g.kcal_100g),
+    preis: g => g.preis_studierende,
+    eiweiss: g => g.eiweiss_100g,
+  };
+  const hochIstGut = { gesundheit: true, kalorien: false, preis: false, eiweiss: true };
+  const spanne = {};
+  for (const k in werte) {
+    const z = gerichte.map(werte[k]).filter(v => typeof v === "number");
+    spanne[k] = { min: Math.min(...z), max: Math.max(...z) };
+  }
+  return gerichte.map(g => {
+    let summe = 0, gewicht = 0;
+    for (const k in werte) {
+      const w = einst.gewichte[k];
+      if (!w) continue;
+      const v = werte[k](g);
+      const { min, max } = spanne[k];
+      let n;
+      if (typeof v !== "number") n = 0.5;
+      else if (max === min) n = 1;
+      else {
+        n = (v - min) / (max - min);
+        if (!hochIstGut[k]) n = 1 - n;
+      }
+      summe += w * n;
+      gewicht += w;
+    }
+    return { ...g, punkte: gewicht ? summe / gewicht : 0 };
+  });
+}
+
+function karte(g, gross) {
+  const kcal = g.kcal_portion != null
+    ? `${g.kcal_portion} kcal <span class="hinweis">geschätzt</span>`
+    : g.kcal_100g != null ? `${g.kcal_100g} kcal / 100 g` : "kcal unbekannt";
+  const eiweiss = g.eiweiss_100g != null ? `<span class="chip">${g.eiweiss_100g} g Eiweiß / 100 g</span>` : "";
+  const veg = g.vegan ? '<span class="chip veg">vegan</span>' : g.vegetarisch ? '<span class="chip veg">vegetarisch</span>' : "";
+  const farbe = g.gesundheit == null ? "#d1d5db" : g.gesundheit >= 7 ? "var(--gruen)" : g.gesundheit >= 4 ? "var(--gelb)" : "var(--rot)";
+  const ampel = `<span class="ampel"><i style="background:${farbe}"></i>Gesundheit ${g.gesundheit ?? "–"}/10 <span class="hinweis">geschätzt</span></span>`;
+  const titel = gross ? `<h2>${esc(g.name)}</h2>` : `<h3>${esc(g.name)}</h3>`;
+  return `<article class="karte${gross ? " empfehlung" : ""}">
+    ${gross ? '<span class="etikett">★ Tagesempfehlung</span>' : ""}
+    <span class="punkte">${Math.round(g.punkte * 100)} Punkte</span>
+    <div class="kat">${esc(g.kategorie)}</div>${titel}
+    <div class="werte"><span class="chip">${euro(g.preis_studierende)}</span><span class="chip">${kcal}</span>${eiweiss}${veg}${ampel}</div>
+    ${g.begruendung ? `<p class="grund">${esc(g.begruendung)} <span class="hinweis">(geschätzt)</span></p>` : ""}
+  </article>`;
+}
+
+function zeichneTabs() {
+  el("tabs").innerHTML = daten.tage.map((t, i) =>
+    `<button data-i="${i}" class="${i === tagIndex ? "aktiv" : ""}">${esc(t.wochentag)}<small>${kurzDatum(t.datum)}</small></button>`).join("");
+}
+
+function zeichne() {
+  if (!daten) return;
+  const tag = daten.tage[tagIndex];
+  empfehlung = null;
+  el("mail").disabled = true;
+  if (!tag.gerichte.length) {
+    el("inhalt").innerHTML = '<div class="karte leer">Für diesen Tag gibt es keinen Speiseplan.</div>';
+    return;
+  }
+  const passend = tag.gerichte.filter(g => (!einst.vegan || g.vegan) && (!einst.vegetarisch || g.vegetarisch || g.vegan));
+  if (!passend.length) {
+    el("inhalt").innerHTML = '<div class="karte leer">Kein Gericht passt zu deinen
