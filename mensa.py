@@ -31,10 +31,9 @@ def mensa_nummern():
     optionen = re.findall(r'<option[^>]*value=["\']?(\d+)["\']?[^>]*>([^<]+)<', html, re.I)
     nummern = {}
     for datei, suchwort in MENSEN.items():
-        for wert, text in optionen:
-            if suchwort in text.upper():
-                nummern[datei] = wert
-                break
+                for m in re.finditer(suchwort, html, re.I):
+            treffer = re.findall(r'value\s*=\s*["\']?\s*(\d+)', html[max(0, m.start() - 200):m.start()], re.I)
+            if treffer: nummern[datei] = treffer[-1]; break
         print(f"Mensa {suchwort}: Nummer {nummern.get(datei)}")
     if len(nummern) < len(MENSEN):
         print("Gefundene Auswahlliste:", optionen)
