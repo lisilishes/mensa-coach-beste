@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-26T07:44+00:00",
+ "stand": "2026-11-27T06:00+00:00",
  "tage": [
   {
    "datum": "2026-11-23",
@@ -15,7 +15,7 @@
      "eiweiss_100g": 3.5,
      "gesundheit": 7,
      "kcal_portion": 580,
-     "begruendung": "Vollkornpasta, Gemüse, wenig Fett"
+     "begruendung": "Vollkornpasta, Pilze und Tomaten, moderat kalorienarm"
     },
     {
      "kategorie": "HAUPTGERICHT",
@@ -27,7 +27,7 @@
      "eiweiss_100g": 4.2,
      "gesundheit": 5,
      "kcal_portion": 750,
-     "begruendung": "Fleisch und Sahne, aber Gemüse und Beeren"
+     "begruendung": "Fleischbällchen und Rahmsauce sehr kalorienreich"
     }
    ]
   },
@@ -44,8 +44,8 @@
      "kcal_100g": 150.0,
      "eiweiss_100g": 3.0,
      "gesundheit": 9,
-     "kcal_portion": 540,
-     "begruendung": "Vollkorn, viel Gemüse, keine tierischen Fette"
+     "kcal_portion": 530,
+     "begruendung": "Vollwertig, viel Gemüse, wenig gesättigte Fette"
     },
     {
      "kategorie": "HAUPTGERICHT",
@@ -55,9 +55,9 @@
      "vegetarisch": false,
      "kcal_100g": 127.0,
      "eiweiss_100g": 5.5,
-     "gesundheit": 4,
+     "gesundheit": 5,
      "kcal_portion": 720,
-     "begruendung": "Fettig, wenig Gemüse, hoher Kaloriengehalt"
+     "begruendung": "Fettig, aber Protein; Beilagen erhöhen Kalorien"
     }
    ]
   },
@@ -74,8 +74,8 @@
      "kcal_100g": 111.0,
      "eiweiss_100g": 2.8,
      "gesundheit": 8,
-     "kcal_portion": 540,
-     "begruendung": "Vollkorn, Gemüse, moderate Kalorien"
+     "kcal_portion": 610,
+     "begruendung": "Gemüse und Gnocchi ausgewogen, moderate Kalorien"
     },
     {
      "kategorie": "HAUPTGERICHT",
@@ -87,7 +87,7 @@
      "eiweiss_100g": 4.4,
      "gesundheit": 7,
      "kcal_portion": 560,
-     "begruendung": "Gemüseanteil gut, moderate Kohlenhydrate"
+     "begruendung": "Gemüseanteil gut, Kartoffeln liefern Kohlenhydrate"
     },
     {
      "kategorie": "HAUPTGERICHT",
@@ -97,9 +97,9 @@
      "vegetarisch": false,
      "kcal_100g": 176.0,
      "eiweiss_100g": 8.5,
-     "gesundheit": 5,
+     "gesundheit": 6,
      "kcal_portion": 690,
-     "begruendung": "Fleischsauce, Käse, moderate Kohlenhydrate"
+     "begruendung": "Proteinreiches Fleisch, aber viel Käse und Pasta"
     }
    ]
   },
@@ -116,8 +116,8 @@
      "kcal_100g": 99.0,
      "eiweiss_100g": 2.1,
      "gesundheit": 5,
-     "kcal_portion": 650,
-     "begruendung": "Kartoffeln, Sauerkraut, etwas Fett"
+     "kcal_portion": 620,
+     "begruendung": "Schupfnudeln kohlenhydratreich, Sauerkraut liefert wenig Nährstoffe"
     },
     {
      "kategorie": "HAUPTGERICHT",
@@ -127,9 +127,9 @@
      "vegetarisch": true,
      "kcal_100g": 163.0,
      "eiweiss_100g": 5.8,
-     "gesundheit": 5,
+     "gesundheit": 6,
      "kcal_portion": 680,
-     "begruendung": "Käse und Nüsse erhöhen Kalorien, aber fruchtig"
+     "begruendung": "Käse und Nüsse reich an Fett, Birne liefert Ballaststoffe"
     },
     {
      "kategorie": "HAUPTGERICHT",
@@ -140,8 +140,8 @@
      "kcal_100g": 159.0,
      "eiweiss_100g": 10.1,
      "gesundheit": 4,
-     "kcal_portion": 770,
-     "begruendung": "Fettreiches Fleisch, Rahmsauce, Nudeln"
+     "kcal_portion": 800,
+     "begruendung": "Fettreicher Braten, Rahmsauce und Spätzle sehr kalorienreich"
     }
    ]
   },
@@ -158,7 +158,7 @@
      "kcal_100g": 94.0,
      "eiweiss_100g": 3.0,
      "gesundheit": 8,
-     "kcal_portion": 560,
+     "kcal_portion": 540,
      "begruendung": "Vollkornreis, viel Gemüse, wenig Fett"
     },
     {
@@ -170,8 +170,8 @@
      "kcal_100g": 177.0,
      "eiweiss_100g": 5.9,
      "gesundheit": 3,
-     "kcal_portion": 820,
-     "begruendung": "Frittierte Pommes, viel Käse und Sauce"
+     "kcal_portion": 850,
+     "begruendung": "Pommes, Sauce und Käse sehr fettreich"
     },
     {
      "kategorie": "HAUPTGERICHT",
@@ -182,8 +182,8 @@
      "kcal_100g": 187.0,
      "eiweiss_100g": 6.7,
      "gesundheit": 6,
-     "kcal_portion": 630,
-     "begruendung": "Panierte Fisch, Remoulade, Kartoffelsalat, moderat"
+     "kcal_portion": 640,
+     "begruendung": "Fisch proteinreich, Remoulade und Salat erhöhen Fett"
     }
    ]
   }
